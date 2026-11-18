@@ -77,4 +77,158 @@ article div{
     font-weight:bold;
     background-color:cornflowerblue;
     border:2px solid darkblue;
+
+    /* you can add flex box inside of a grid inside 
+    of flexbox */
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/********************************************
+            GRID STYLES 
+********************************************/
+
+section.one article{
+    /*like display flex, you need to have a grid 
+    container with display.grid */
+    display:grid;
+    
+    /*tell the grid how many columns it should have 
+    fr stands for farction, and it means to use a part 
+    of the available space */
+    grid-template-columns: 200px 2fr 1fr;
+    
+    /* you can also control rows - but in this example, the  
+    third row wont have a defined height */
+    grid-template-rows:120px 120px;
+}
+
+section.two article{
+    display: grid;
+
+    /* with grid you have an explicit grid (what you define)
+    and an implicit grid (what the browser automatically 
+    fills out) */
+    
+    grid-template-columns: repeat(4, 1fr);
+    
+    /* for rows, you can tell each row to automatically 
+    take on a property, no matter how many */
+    grid-auto-rows: 120px;
+
+    /* tell the gris*/
+
+    grid-auto-flow: dense;
+}
+
+section.two div:nth-child(1){
+    /* you can tell a cell to start and end at a row or
+     column*/
+     grid-column-start: 1;
+     grid-column-end: 3;
+
+     grid-row-start: 1;
+     grid-row-end: 3;
+    }
+
+    section.two div:nth-child(2){
+        grid-column-start: 2;
+        grid-column-end: 5;
+
+        grid-row-start: 2;
+        grid-row-end: 3;
+    }
+
+    section.two div:nth-child(6){
+        grid-column-start: 1;
+
+        /* you can use span to tell it to stretch across a 
+        specific number of columns */
+        grid-column-end: span 4;
+    }
+
+    section.three article{
+        display: grid;
+
+        grid-template-columns: 1ft 2fr 1fr;
+        grid-auto-rows: 120px;
+        grid-auto-flow: dense;
+
+        /* you can put space between rows and columns with gap*/
+        gap: 1em 1em;
+    }
+
+    section.three div:nth-child(2){
+        /* another way to move grid cells is with order 
+        by default every thing has an order of 0 - anything
+        with a higher order comes later, anything with a lower 
+        order comes earlier */
+        order: 1;
+}
+
+section.three div:nth-child(5){
+    grid-area: 2 / 1 / span 2 / span 2;
+    /* tis is equivalent to writng;
+    grid-colums-start: 2
+    grid-column-end: span 2
+    gris-row-start: 1
+    grid-row-end: span 2*/
+}
+
+
+/********************************
+         GRID MAPPING 
+********************************/
+
+section.four article{
+    display: grid;
+
+    /* this draws a map of different areas you can use
+    in your grid*/
+    grid-template-areas:
+    "nav cart"
+    "header header"
+    "main main"
+    "photo1 photo2"
+    "aside aaside"
+    "footer footer"
+
+    grid-auto-rows:120px;
+}
+
+/* then you have to tell each element which area it should 
+use */
+section.four div:nth-child(1){ grid-area: nav; }
+section.four div:nth-child(2){ grid-area: cart; }
+section.four div:nth-child(3){ grid-area: header; }
+section.four div:nth-child(4){ grid-area: main; }
+section.four div:nth-child(5){ grid-area: photo1; }
+section.four div:nth-child(6){ grid-area: photo2; }
+section.four div:nth-child(7){ grid-area: aside; }
+section.four div:nth-child(8){ grid-area: footer; }
+
+@media screen and (min-width:720px){
+    /*when we want to change the site for a bigger screen 
+    all we do is change the map*/
+
+    section.four article{
+        grid-template-areas:
+        "nav nav cart"
+        "header header header"
+        "main main aside "
+        "photo1 photo2 aside"
+        "footet footer footer";
+    }
+}
+
+@media screen and (min-width:900px){
+    section.four article{
+        grid-template-areas: 
+        "nav nav nav cart"
+        "header header header header"
+        "photo1 main main aside"
+        "photo2 main main aside"
+        "footer footer footer aside";
+    }
 }
